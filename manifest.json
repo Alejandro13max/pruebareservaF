@@ -1,0 +1,61 @@
+{
+    "short_name": "MultiCancha",
+    "name": "MULTI CANCHA - Complejo Deportivo",
+    "description": "Reserva canchas de fútbol, futsal, pádel, básquet, tenis y vóley en La Paz.",
+    "lang": "es",
+    "dir": "ltr",
+    "icons": [
+        {
+            "src": "img/icon-192.png",
+            "type": "image/png",
+            "sizes": "192x192",
+            "purpose": "any"
+        },
+        {
+            "src": "img/icon-512.png",
+            "type": "image/png",
+            "sizes": "512x512",
+            "purpose": "any"
+        },
+        {
+            "src": "img/icon-512.png",
+            "type": "image/png",
+            "sizes": "512x512",
+            "purpose": "maskable"
+        }
+    ],
+    "start_url": "./index.html",
+    "scope": "./",
+    "display": "standalone",
+    "orientation": "portrait",
+    "background_color": "#0a0f14",
+    "theme_color": "#0a0f14",
+    "categories": [
+        "sports",
+        "lifestyle",
+        "utilities"
+    ],
+    "shortcuts": [
+        {
+            "name": "Reservar Cancha",
+            "short_name": "Reservar",
+            "description": "Ir directo al catálogo de canchas deportivas",
+            "url": "./index.html#canchas",
+            "icons": [{ "src": "img/icon-192.png", "sizes": "192x192" }]
+        },
+        {
+            "name": "Mi Reserva Activa",
+            "short_name": "Mi Reserva",
+            "description": "Ver el estado y cronómetro de mi reserva",
+            "url": "./index.html#mis-reservas",
+            "icons": [{ "src": "img/icon-192.png", "sizes": "192x192" }]
+        },
+        {
+            "name": "Calendario de Eventos",
+            "short_name": "Calendario",
+            "description": "Consultar fechas y promociones del mes",
+            "url": "./index.html#calendario",
+            "icons": [{ "src": "img/icon-192.png", "sizes": "192x192" }]
+        }
+    ]
+}

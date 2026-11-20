@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5.0">
+    <meta name="description" content="MULTI CANCHA - Complejo deportivo. Reserva canchas de fútbol, futsal, pádel, básquet, tenis y vóley en La Paz.">
+    <title>MULTI CANCHA | Complejo Deportivo</title>
+
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0a0f14">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="MultiCancha">
+    <meta name="application-name" content="MultiCancha">
+    <link rel="apple-touch-icon" href="img/icon-192.png">
+    <link rel="icon" type="image/png" href="img/icon-192.png">
+
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome (solo iconos de interfaz, no fotos) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@500;700&family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
+
+    <!-- CSS ARQUITECTURA MODULAR (GUÍAS PRÁCTICAS 1 Y 2) -->
+    <!-- css/layout.css: Mobile-First, CSS Grid y Flexbox de Layout -->
+    <link rel="stylesheet" href="css/layout.css">
+    <!-- css/tarjeta.css: Componente Reutilizable .card-item y Encapsulamiento BEM -->
+    <link rel="stylesheet" href="css/tarjeta.css">
+    <!-- styles.css: Estilos globales y temas del sistema de reservas -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="modo-oscuro">
+
+    <!-- MENÚ LATERAL IZQUIERDO -->
+    <aside id="sidebarMenu" class="sidebar-menu" aria-hidden="true">
+        <div class="sidebar-header p-3 border-bottom d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center gap-2">
+                <div class="logo-shield"><i class="fas fa-shield-alt"></i></div>
+                <h4 class="logo-text m-0">MULTI<span class="text-neon">CANCHA</span></h4>
+            </div>
+            <button id="btnCerrarMenu" class="btn btn-outline-light rounded-0 btn-sm btn-tactil" aria-label="Cerrar menú">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <div class="p-3">
+            <small class="text-muted fw-bold d-block mb-2">NAVEGACIÓN</small>
+            <ul class="nav flex-column gap-1 mb-4">
+                <li class="nav-item"><a href="#" class="nav-link-sidebar active" data-seccion="inicio"><i class="fas fa-home"></i> Inicio</a></li>
+                <li class="nav-item"><a href="#" class="nav-link-sidebar" data-seccion="canchas"><i class="fas fa-futbol"></i> Reservar Cancha</a></li>
+                <li class="nav-item"><a href="#" class="nav-link-sidebar" data-seccion="calendario"><i class="fas fa-calendar-alt"></i> Calendario</a></li>
+                <li class="nav-item"><a href="#" class="nav-link-sidebar" data-seccion="mis-reservas"><i class="fas fa-ticket-alt"></i> Mi Reserva</a></li>
+            </ul>
+
+            <small class="text-muted fw-bold d-block mb-2">DISCIPLINAS</small>
+            <ul class="nav flex-column gap-1 mb-4">
+                <li class="nav-item"><a href="#" class="nav-link-sidebar" data-deporte="futbol"><i class="fas fa-futbol"></i> Fútbol</a></li>
+                <li class="nav-item"><a href="#" class="nav-link-sidebar" data-deporte="futsal"><i class="fas fa-futbol"></i> Futsal</a></li>
+                <li class="nav-item"><a href="#" class="nav-link-sidebar" data-deporte="padel"><i class="fas fa-table-tennis-paddle-ball"></i> Pádel</a></li>
+                <li class="nav-item"><a href="#" class="nav-link-sidebar" data-deporte="basquet"><i class="fas fa-basketball-ball"></i> Básquet</a></li>
+                <li class="nav-item"><a href="#" class="nav-link-sidebar" data-deporte="tenis"><i class="fas fa-baseball-ball"></i> Tenis</a></li>
+                <li class="nav-item"><a href="#" class="nav-link-sidebar" data-deporte="voley"><i class="fas fa-volleyball-ball"></i> Vóley</a></li>
+            </ul>
+
+            <div class="mt-3 text-center">
+                <!-- Botón de Instalación PWA en Menú Lateral -->
+                <button id="btnInstalarPwaMenu" class="btn btn-neon w-100 rounded-0 btn-tactil mb-2 d-none">
+                    <i class="fas fa-download me-2"></i> Instalar App PWA
+                </button>
+                <button id="btnHidratar" class="btn btn-outline-success w-100 rounded-0 btn-tactil">
+                    <i class="fas fa-sync-alt me-2"></i> <span id="txtHidratacion">Sincronizar App</span>
+                </button>
+            </div>
+        </div>
+    </aside>
+    <div id="overlay" class="overlay"></div>
+
+    <!-- PANEL DE DETALLE DEL DEPORTE -->
+    <aside id="panelDeporte" class="panel-deporte" aria-hidden="true">
+        <div class="p-4">
+            <button id="btnCerrarDeporte" class="btn btn-outline-light rounded-0 btn-sm mb-3 btn-tactil">
+                <i class="fas fa-arrow-left"></i> Volver
+            </button>
+            <div id="deporteIcono" class="mb-3 text-center text-neon"></div>
+            <h2 id="deporteTitulo" class="fw-bold border-bottom pb-2 mb-3"></h2>
+            <p id="deporteDesc" class="fs-6 mb-4"></p>
+            <button id="btnVerCanchasDeporte" class="btn btn-neon w-100 rounded-0 py-3 fw-bold btn-tactil">
+                Ver Canchas de este Deporte
+            </button>
+        </div>
+    </aside>
+
+    <!-- HEADER -->
+    <header class="stadium-header">
+        <div class="container-fluid d-flex justify-content-between align-items-center gap-2">
+            <div class="d-flex align-items-center gap-2">
+                <button id="btnAbrirMenu" class="btn btn-success rounded-0 btn-tactil" aria-label="Abrir menú">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <button id="btnHome" class="btn btn-outline-success rounded-0 btn-tactil" title="Volver al inicio" aria-label="Inicio">
+                    <i class="fas fa-home"></i>
+                </button>
+                <h1 class="logo-text m-0 d-none d-md-block">MULTI<span class="text-neon">CANCHA</span></h1>
+            </div>
+            <div class="d-flex gap-2 align-items-center">
+                <!-- Botón de Instalación PWA en Header -->
+                <button id="btnInstalarPwa" class="btn btn-outline-neon rounded-0 btn-tactil d-none" title="Instalar Aplicación en tu dispositivo" aria-label="Instalar Aplicación">
+                    <i class="fas fa-download me-1"></i> <span class="d-none d-sm-inline">Instalar App</span>
+                </button>
+                <span id="estadoRed" class="badge bg-success border border-success px-2 py-2 rounded-0">EN LÍNEA</span>
+                <button id="themeBtn" class="btn btn-outline-light rounded-0 btn-tactil" aria-label="Cambiar tema">
+                    <i class="fas fa-sun"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="main-content">
+
+        <!-- VISTA 1: INICIO -->
+        <section id="sec-inicio" class="app-seccion activa">
+            <div class="hero-stadium p-4 p-md-5 mb-4 mb-md-5">
+                <h1 class="display-4 fw-bold text-white m-0 hero-title">
+                    JUEGA EN LA MEJOR<br><span class="text-neon">CANCHA DE LA PAZ</span>
+                </h1>
+                <p class="text-light mt-3 fs-6 fs-md-5 max-w-600">
+                    Fútbol, Futsal, Pádel y más. Reserva fácil, juega rápido. Tu próximo partido comienza aquí.
+                </p>
+                <div class="mt-4">
+                    <button class="btn btn-neon btn-lg rounded-0 px-4 fw-bold btn-tactil" data-filtro="todos">
+                        VER TODAS LAS CANCHAS
+                    </button>
+                </div>
+            </div>
+
+            <h3 class="section-title mb-4 text-center">NUESTRAS DISCIPLINAS</h3>
+            <div class="row g-3 mb-5 justify-content-center" id="gridDisciplinas"></div>
+
+            <h3 class="section-title mb-4 text-center">IR A RESERVAR</h3>
+            <div class="d-flex flex-wrap gap-2 mb-4 justify-content-center" id="botonesFiltro"></div>
+        </section>
+
+        <!-- VISTA 2: CANCHAS (MODULAR - CSS GRID Y SIMULACIÓN) -->
+        <section id="sec-canchas" class="app-seccion">
+            <h2 class="section-title mb-4">CATÁLOGO DE CANCHAS</h2>
+
+            <!-- SIMULACIÓN: Barra de herramientas para demostración docente en vivo -->
+            <div class="demo-toolbar">
+                <div class="demo-toolbar__info">
+                    <span class="text-neon fw-bold"><i class="fas fa-flask me-1"></i>Demostración Académica:</span>
+                    <span id="badgeModoVista" class="badge bg-secondary py-2 px-3">Modo: Responsivo Automático (Grid auto-fit)</span>
+                </div>
+                <div class="demo-toolbar__acciones">
+                    <!-- Botón de Simulación para Demostración (Guía Práctica Parte 2) -->
+                    <button type="button" id="btnSimularVista" class="btn btn-outline-neon btn-tactil">
+                        <i class="fas fa-mobile-alt me-2"></i>Simular Vista Móvil (1 Columna)
+                    </button>
+                </div>
+            </div>
+
+            <!-- CSS GRID: Contenedor bidimensional del catálogo (.catalogo-grid) -->
+            <div class="catalogo-grid" id="contenedorCanchas"></div>
+        </section>
+
+        <!-- VISTA 3: CALENDARIO -->
+        <section id="sec-calendario" class="app-seccion">
+            <h2 class="section-title mb-4">CALENDARIO DE EVENTOS</h2>
+            <div class="row g-3">
+                <div class="col-12 col-lg-8">
+                    <div class="calendar-wrapper p-3 p-md-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h4 class="fw-bold m-0">NOVIEMBRE 2026</h4>
+                        </div>
+                        <div class="calendar-grid-header mb-2">
+                            <div>Lun</div><div>Mar</div><div>Mié</div><div>Jue</div><div>Vie</div><div>Sáb</div><div>Dom</div>
+                        </div>
+                        <div class="calendar-grid" id="calendarGrid"></div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-4">
+                    <div class="stadium-card p-4 h-100">
+                        <h5 class="fw-bold border-bottom pb-2 mb-3">PRÓXIMOS EVENTOS</h5>
+                        <div class="mb-3">
+                            <span class="badge bg-neon rounded-0 mb-1">15 NOV</span>
+                            <h6 class="fw-bold m-0">Copa MultiCancha</h6>
+                        </div>
+                        <div class="mb-3">
+                            <span class="badge bg-warning text-dark rounded-0 mb-1">20 NOV</span>
+                            <h6 class="fw-bold m-0">Descuento 2x1 Pádel</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VISTA 4: MI RESERVA -->
+        <section id="sec-mis-reservas" class="app-seccion">
+            <h2 class="section-title mb-4">MI RESERVA</h2>
+            <div id="vacioReserva" class="text-center py-5 stadium-card">
+                <i class="fas fa-ticket-alt fs-1 text-muted mb-3"></i>
+                <h4 class="fw-bold">No tienes reservas activas</h4>
+                <p class="text-muted">Selecciona una cancha para reservar.</p>
+            </div>
+            <div id="detalleReserva" class="stadium-card" style="display:none;">
+                <img id="reservaFoto" src="" alt="Cancha reservada" class="w-100 reserva-img">
+                <div class="p-3 p-md-4 bg-dark">
+                    <h2 id="reservaNombre" class="text-neon fw-bold"></h2>
+                    <p class="mb-1">Cliente: <span id="reservaCliente"></span></p>
+                    <p class="mb-1">Fecha: <span id="reservaFecha"></span></p>
+                    <p class="mb-3">Extras: <span id="reservaExtras"></span></p>
+                    <h3 id="reservaTimer" class="text-warning font-monospace mb-4">00:00:00</h3>
+                    <button id="btnCancelarReserva" class="btn btn-outline-danger rounded-0 w-100 btn-tactil">CANCELAR RESERVA</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- MODAL DE RESERVA (MEJORADO) -->
+    <div class="modal fade" id="modalReserva" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content border-0 bg-dark rounded-0">
+                <div class="modal-header border-bottom rounded-0">
+                    <h5 class="modal-title fw-bold">CONFIRMAR RESERVA</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <img id="modalImgCancha" src="" alt="Cancha" class="w-100 mb-3 modal-img">
+                    <h4 id="modalNombreCancha" class="text-neon fw-bold mb-3"></h4>
+                    
+                    <form id="formReserva" novalidate>
+                        <!-- Nombre -->
+                        <div class="mb-3">
+                            <label class="text-muted small fw-bold" for="inputNombre">NOMBRE COMPLETO</label>
+                            <input type="text" class="form-control bg-dark text-white border-secondary rounded-0" id="inputNombre" placeholder="Ej. Juan Pérez" required minlength="3" autocomplete="name">
+                            <small class="text-danger error-msg" id="errorNombre"></small>
+                        </div>
+
+                        <!-- Horarios -->
+                        <div class="row g-2 mb-3">
+                            <div class="col-6">
+                                <label class="text-muted small fw-bold" for="selectHora">HORA DE INICIO</label>
+                                <select class="form-select bg-dark text-white border-secondary rounded-0" id="selectHora">
+                                    <option value="18:00">18:00</option>
+                                    <option value="19:00">19:00</option>
+                                    <option value="20:00">20:00</option>
+                                    <option value="21:00">21:00</option>
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <label class="text-muted small fw-bold" for="selectHoras">DURACIÓN</label>
+                                <select class="form-select bg-dark text-white border-secondary rounded-0" id="selectHoras">
+                                    <option value="1">1 Hora</option>
+                                    <option value="2">2 Horas</option>
+                                    <option value="3">3 Horas</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Jugadores -->
+                        <div class="mb-3">
+                            <label class="text-muted small fw-bold" for="selectJugadores">NÚMERO DE JUGADORES</label>
+                            <select class="form-select bg-dark text-white border-secondary rounded-0" id="selectJugadores">
+                                <option value="10">10 personas (5v5)</option>
+                                <option value="14">14 personas (7v7)</option>
+                                <option value="22">22 personas (11v11)</option>
+                                <option value="4">4 personas (2v2)</option>
+                                <option value="2">2 personas (1v1)</option>
+                            </select>
+                        </div>
+
+                        <!-- Extras -->
+                        <div class="mb-4">
+                            <label class="text-muted small fw-bold d-block mb-2">¿NECESITAS ALGO MÁS?</label>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="extraBalon" data-precio="15" data-nombre="Alquiler de Balón/Pelota">
+                                <label class="form-check-label text-light" for="extraBalon">
+                                    <i class="fas fa-futbol text-neon me-1"></i> Alquilar balón/pelota <span class="text-muted small">(+ Bs. 15)</span>
+                                </label>
+                            </div>
+                            <div class="form-check mb-2" id="boxChalecos">
+                                <input class="form-check-input" type="checkbox" id="extraChalecos" data-precio="10" data-nombre="Alquiler de Chalecos">
+                                <label class="form-check-label text-light" for="extraChalecos">
+                                    <i class="fas fa-tshirt text-neon me-1"></i> Alquilar chalecos <span class="text-muted small">(+ Bs. 10)</span>
+                                </label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="extraArbitro" data-precio="40" data-nombre="Árbitro Profesional">
+                                <label class="form-check-label text-light" for="extraArbitro">
+                                    <i class="fas fa-whistle text-neon me-1"></i> Árbitro profesional <span class="text-muted small">(+ Bs. 40)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Resumen de Pago -->
+                        <div class="p-3 mb-4 border border-secondary rounded-0 bg-dark" id="resumenPago">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span class="text-muted small">Cancha (1 hr)</span>
+                                <span id="precioCancha" class="text-light fw-bold">Bs. 0</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-1">
+                                <span class="text-muted small">Extras</span>
+                                <span id="precioExtras" class="text-light fw-bold">Bs. 0</span>
+                            </div>
+                            <hr class="border-secondary my-2">
+                            <div class="d-flex justify-content-between">
+                                <span class="text-white fw-bold fs-5">TOTAL</span>
+                                <span id="precioTotal" class="text-neon fw-bold fs-5">Bs. 0</span>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-neon w-100 rounded-0 py-3 fw-bold btn-tactil">PAGAR Y RESERVAR</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST -->
+    <div id="toastBox" class="toast-custom shadow-lg" role="status" aria-live="polite">
+        <i id="toastIcon" class="fas fa-check-circle text-neon fs-4"></i>
+        <span id="toastMsg" class="text-white fw-bold ms-2">Reserva confirmada</span>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- LÓGICA MODULAR (GUÍAS PRÁCTICAS 1 Y 2) -->
+    <!-- js/tarjeta.js: Componente modular reutilizable y simulación independiente -->
+    <script src="js/tarjeta.js"></script>
+    <!-- js/layout.js: Simulación de cambio de vista móvil/escritorio -->
+    <script src="js/layout.js"></script>
+    <!-- script.js: Sistema principal de reservas, filtros y eventos -->
+    <script src="script.js"></script>
+</body>
+</html>

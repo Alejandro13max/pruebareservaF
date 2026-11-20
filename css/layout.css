@@ -1,0 +1,89 @@
+/* ==========================================================================
+   HOJA DE ESTILOS DE LAYOUT: MOBILE-FIRST, CSS GRID Y FLEXBOX
+   Materia: Diseño Web II (SIS-0141) - Guía Práctica Parte 2
+   Docente: Ing. Miguel Angel Cruz Ramos
+   ========================================================================== */
+
+/* MOBILE-FIRST:
+   Estilos base diseñados inicialmente para dispositivos móviles (pantallas pequeñas).
+   No se utilizan anchos fijos mayores al viewport ni márgenes rígidos para evitar
+   desbordamientos horizontales (overflow-x). */
+
+/* CSS GRID:
+   Estructura bidimensional para el contenedor principal del catálogo de canchas.
+   En móviles la grilla inicia en una sola columna fluida (1fr). */
+.catalogo-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    width: 100%;
+    margin: 0 auto;
+    transition: all 0.3s ease-in-out;
+}
+
+/* FLEXBOX:
+   Barra de herramientas de simulación y controles de vista organizada con Flexbox.
+   Permite alinear botones y badges de forma limpia y unidimensional. */
+.demo-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 18px;
+    background: var(--bg-card, #121a21);
+    border: 1px solid var(--border-color, #2a3744);
+    border-left: 4px solid var(--neon, #10b981);
+    margin-bottom: 24px;
+}
+
+.demo-toolbar__info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.demo-toolbar__acciones {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* SIMULACIÓN:
+   Clase conmutada por JavaScript para demostrar en vivo el comportamiento
+   de una columna móvil (380px) dentro de pantallas de escritorio, cumpliendo
+   el requerimiento específico de la Guía Práctica 2. */
+.catalogo-grid.sim-movil {
+    grid-template-columns: 1fr !important;
+    max-width: 380px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding: 10px;
+    background: rgba(16, 185, 129, 0.04);
+    border: 2px dashed var(--neon, #10b981);
+    border-radius: 4px;
+}
+
+/* MEDIA QUERY:
+   Adaptación responsiva para tablets (min-width: 768px).
+   La grilla escala de 1fr a múltiples columnas adaptativas mediante
+   repeat(auto-fit, minmax(220px, 1fr)) según la Guía Práctica 2. */
+@media (min-width: 768px) {
+    .catalogo-grid {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+    }
+}
+
+/* MEDIA QUERY:
+   Adaptación responsiva para monitores y pantallas de escritorio (min-width: 1024px).
+   Optimiza el espacio con un tamaño mínimo mayor por tarjeta y espacio holgado. */
+@media (min-width: 1024px) {
+    .catalogo-grid {
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 24px;
+    }
+}
+

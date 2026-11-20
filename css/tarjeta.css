@@ -1,0 +1,258 @@
+/* ==========================================================================
+   HOJA DE ESTILOS DE COMPONENTES: TARJETA DE CANCHA (ENCAPSULAMIENTO)
+   Materia: Diseño Web II (SIS-0141) - Guía Práctica Parte 1
+   Docente: Ing. Miguel Angel Cruz Ramos
+   ========================================================================== */
+
+/* COMPONENTE REUTILIZABLE:
+   Define la estructura visual y modular de cada tarjeta de reserva/cancha (.card-item).
+   Permite agregar infinitas canchas de forma dinámica sin modificar el HTML base. */
+
+/* ENCAPSULAMIENTO:
+   Todos los estilos pertenecen exclusivamente al componente usando la convención BEM
+   (.card-item__elemento). Se evita modificar etiquetas globales como <h3>, <p> o <button>
+   para prevenir fugas de estilo y colisiones con el resto de la aplicación. */
+
+.card-item {
+    position: relative;
+    background: var(--bg-card, #121a21);
+    border: 1px solid var(--border-color, #2a3744);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    width: 100%;
+}
+
+.card-item:hover {
+    border-color: var(--neon, #10b981);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.35);
+}
+
+/* ENCAPSULAMIENTO:
+   Contenedor de medios e imagen superior de la tarjeta. */
+.card-item__media {
+    position: relative;
+    width: 100%;
+    height: 190px;
+    overflow: hidden;
+    background: #1a2530;
+}
+
+.card-item__imagen {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.card-item:hover .card-item__imagen {
+    transform: scale(1.05);
+}
+
+/* ENCAPSULAMIENTO:
+   Distintivo del tipo de superficie o disciplina. */
+.card-item__tag {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--neon, #10b981);
+    color: #000000;
+    padding: 4px 10px;
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    z-index: 2;
+}
+
+/* ENCAPSULAMIENTO:
+   Indicador de estado del componente (Disponible / Seleccionado Simulación). */
+.card-item__estado {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background: rgba(10, 15, 20, 0.85);
+    backdrop-filter: blur(4px);
+    color: #e2e8f0;
+    padding: 3px 8px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 2px;
+    z-index: 2;
+    transition: all 0.2s ease;
+}
+
+/* FLEXBOX:
+   Alineación unidimensional del cuerpo de la tarjeta (.card-cuerpo y .card-item__cuerpo).
+   Se utiliza flex-direction: column y justify-content: space-between para distribuir
+   el contenido verticalmente sin requerir márgenes rígidos. */
+.card-cuerpo,
+.card-item__cuerpo {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 16px;
+    flex-grow: 1;
+}
+
+/* ENCAPSULAMIENTO:
+   Tipografía y elementos de contenido del encabezado de la tarjeta. */
+.card-item__header {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.card-item__titulo {
+    font-family: 'Teko', sans-serif;
+    font-size: 1.45rem;
+    line-height: 1.15;
+    margin: 0;
+    color: var(--text-light, #f8fafc);
+    letter-spacing: 0.5px;
+}
+
+.card-item__subtitulo {
+    font-size: 0.82rem;
+    color: var(--text-muted, #94a3b8);
+    margin: 0;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+/* FLEXBOX:
+   Alineación de precios y botones en el pie de la tarjeta.
+   Distribuye el costo a la izquierda y las acciones interactivas a la derecha. */
+.card-item__pie {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border-top: 1px solid var(--border-color, #2a3744);
+    padding-top: 14px;
+    margin-top: auto;
+}
+
+.card-item__precio-box {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+}
+
+.card-item__precio {
+    color: var(--neon, #10b981);
+    font-weight: 800;
+    font-size: 1.3rem;
+    font-family: 'Teko', sans-serif;
+    line-height: 1;
+}
+
+.card-item__precio-unidad {
+    color: var(--text-muted, #94a3b8);
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+/* FLEXBOX:
+   Agrupación horizontal de los botones de acción dentro de la tarjeta. */
+.card-item__acciones {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+}
+
+/* BOTONES DE LA TARJETA (MOBILE-FIRST):
+   Se garantiza área táctil mínima de 44px (btn-tactil) para usabilidad táctil. */
+.card-item__btn-simular {
+    flex: 1;
+    background: transparent;
+    border: 1px dashed var(--neon, #10b981);
+    color: var(--neon, #10b981);
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 8px 10px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-item__btn-simular:hover {
+    background: rgba(16, 185, 129, 0.15);
+    border-style: solid;
+}
+
+.card-item__btn-reservar {
+    flex: 1;
+    background: var(--neon, #10b981);
+    color: #000000;
+    border: none;
+    font-size: 0.85rem;
+    font-weight: 800;
+    padding: 8px 12px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-item__btn-reservar:hover {
+    background: #059669;
+    color: #ffffff;
+}
+
+/* SIMULACIÓN:
+   Estado activo aplicado exclusivamente a la tarjeta seleccionada mediante JavaScript (.card-item--activo).
+   Demuestra encapsulamiento e independencia de estado sin afectar a las otras tarjetas. */
+.card-item--activo {
+    border-color: var(--neon, #10b981) !important;
+    box-shadow: 0 0 16px rgba(16, 185, 129, 0.45) !important;
+    background: linear-gradient(180deg, rgba(16, 185, 129, 0.08) 0%, var(--bg-card, #121a21) 100%);
+}
+
+.card-item--activo .card-item__estado {
+    background: var(--neon, #10b981);
+    color: #000000;
+    font-weight: 800;
+    border-color: var(--neon, #10b981);
+}
+
+.card-item--activo .card-item__btn-simular {
+    background: var(--neon, #10b981);
+    color: #000000;
+    border-style: solid;
+}
+
+/* COMPATIBILIDAD CON TEMA CLARO */
+body.modo-claro .card-item {
+    background: #ffffff;
+    border-color: #e2e8f0;
+}
+
+body.modo-claro .card-item__titulo {
+    color: #0f172a !important;
+}
+
+body.modo-claro .card-item__subtitulo {
+    color: #64748b !important;
+}
+
+body.modo-claro .card-item__pie {
+    border-color: #e2e8f0;
+}
+
+body.modo-claro .card-item--activo {
+    background: #f0fdf4 !important;
+    border-color: var(--neon, #10b981) !important;
+}
